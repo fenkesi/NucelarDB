@@ -40,7 +40,7 @@ public class SearchUI {
 		"±ê×¼¿â"
 	};
 	
-	static final int WIDTH = 220;
+	static final int WIDTH = 440;
 	static final int HEIGHT = 300;
 	
 	SearchUI(JFrame main_ui){
@@ -96,8 +96,14 @@ public class SearchUI {
 		box1.add(search);
 		search_ui.add(box1, BorderLayout.NORTH);
 		
-		String time = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-		show_time = new JLabel(time);
+		show_time = new JLabel();		
+		new Thread(new Runnable() {
+			public void run() {
+				while(true){
+				show_time.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));	
+				}
+			}
+		}).start();
 		back = new JButton("·µ»Ø");
 		jp2.add(show_time);
 		jp2.add(back);

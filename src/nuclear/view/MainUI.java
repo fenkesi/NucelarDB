@@ -23,7 +23,7 @@ public class MainUI {
 	private JButton buttons[] = null;
 	private JLabel show_time = null;
 	
-	static final int WIDTH = 220;
+	static final int WIDTH = 440;
 	static final int HEIGHT = 300;
 	
 	MainUI(){

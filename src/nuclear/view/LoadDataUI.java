@@ -44,7 +44,7 @@ public class LoadDataUI{
 	public static final int OPERATION_DATA = 0;
 	public static final int OPERATION_LIB = 1;
 	
-	static final int WIDTH = 220;
+	static final int WIDTH = 440;
 	static final int HEIGHT = 300;
 	
 	public LoadDataUI(int operation, JFrame main_ui) {
@@ -90,8 +90,14 @@ public class LoadDataUI{
 		box.add(file_load);
 		container.add(box, BorderLayout.NORTH);
 		
-		String time = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		show_time = new JLabel(time);
+		show_time = new JLabel();		
+		new Thread(new Runnable() {
+			public void run() {
+				while(true){
+				show_time.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));	
+				}
+			}
+		}).start();		
 		back = new JButton("·µ»Ø");
 		jp_down.add(show_time);
 		jp_down.add(back);		
