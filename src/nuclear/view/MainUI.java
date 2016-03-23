@@ -69,7 +69,7 @@ public class MainUI {
 		new Thread(new Runnable() {
 			public void run() {
 				while(true){
-				show_time.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));	
+				show_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));	
 				}
 			}
 		}).start();

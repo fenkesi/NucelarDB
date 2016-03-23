@@ -26,7 +26,23 @@ public class SearchElem {
 	private ExcelData libData;
 	
 	static final int WIDTH = 220;
-	static final int HEIGHT = 300;
+	static final int HEIGHT = 150;
+	
+	String head[] = {"Z原子序数",
+	"元素",
+	"A质量数",
+	"Jπ原子核基态",
+	"M原子质量",
+	"μ(nm)",
+	"Q(b)",
+	"T(1/2)半衰期",
+	"Γ核素丰度",
+	"D%Q",
+	"R<R>",
+	"Eγ",
+	"Pγ（%）",
+	"σ(ny)"};
+	
 	
 	public SearchElem(String info[]){
 		this.Z = info[0];
@@ -47,42 +63,42 @@ public class SearchElem {
 	public void showResult(ExcelData data, ExcelData libdata){
 		final JFrame jf = new JFrame("数据对比");
 		JPanel jp = new JPanel(new GridLayout(2,1));
-		String head [] = new String[6];
-		String info [][] = new String[2][6];
+		String info [][] = new String[2][14];
 		JTable jt = null;
 		JTable libJt = null;
 		
-		jf.setSize(WIDTH, HEIGHT);
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screen_size = kit.getScreenSize();
 		int width = screen_size.width;
 		int height = screen_size.height;
-		int x = (width - WIDTH) / 2;
+		//在屏幕中间显示，水平顶格
+		jf.setSize(width, HEIGHT);
+		
+		int x = 0;
+//		int x = (width - WIDTH) / 2;
 		int y = (height - HEIGHT) / 2;
 		jf.setLocation(x,y);
 		jf.setVisible(true);
 		
-		head[0] = "数据库";
-		head[1] = "核素";
-		head[2] = "原子量";
-		head[3] = "原子序数";
-		head[4] = "半衰期";
-		head[5] = "衰变方式";
-		
 		info[0][0] = "实验库";
+		
+		info[0][0] = data.Z;
 		info[0][1] = data.nuclear_info[0];
-		info[0][2] = data.nuclear_info[2];
-		info[0][3] = data.Z;
-		info[0][4] = data.nuclear_info[5];
-		info[0][5] = data.nuclear_info[7];
+		info[0][2] = data.A;
+		
+		for(int i=3; i<head.length; i++){
+			info[0][i] = data.nuclear_info[i-2];
+		}
 
 		info[1][0] = "标准库";
-		info[1][1] = libdata.nuclear_info[0];
-		info[1][2] = libdata.nuclear_info[2];
-		info[1][3] = libdata.Z;
-		info[1][4] = libdata.nuclear_info[5];
-		info[1][5] = libdata.nuclear_info[7];
+		info[1][0] = data.Z;
+		info[1][1] = data.nuclear_info[0];
+		info[1][2] = data.A;
 		
+		for(int i=3; i<head.length; i++){
+			info[1][i] = data.nuclear_info[i-2];
+		}		
+				
 		jt = new JTable(info, head);
 		
 		jp.add(new JScrollPane(jt));

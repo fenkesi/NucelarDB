@@ -39,7 +39,7 @@ public class SearchUI {
 		"实验库",
 		"标准库"
 	};
-	
+	static final String values_info[] = {"例：Fe","例：56"};
 	static final int WIDTH = 440;
 	static final int HEIGHT = 300;
 	
@@ -84,6 +84,7 @@ public class SearchUI {
 			jp1.add(new JLabel(strs[i]));
 			if (i<2){
 				values[i] = new JTextField();
+				values[i].setText(values_info[i]);
 				jp1.add(values[i]);
 			}else{
 				jp1.add(jc[i-2]);
@@ -100,7 +101,7 @@ public class SearchUI {
 		new Thread(new Runnable() {
 			public void run() {
 				while(true){
-				show_time.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));	
+				show_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));	
 				}
 			}
 		}).start();

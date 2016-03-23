@@ -121,7 +121,8 @@ public class OperSQL {
 	public ExcelData query(String Z, String A){
 		ExcelData data = new ExcelData();
 		
-		sql = "select * from "+ tableName + " where " + "Z=" + "'" + Z + "'" + " AND " + "A=" + "'" + A + "'";
+		//修改Z为字母  对应数据库nInfo0
+		sql = "select * from "+ tableName + " where " + "nInfo0=" + "'" + Z + "'" + " AND " + "A=" + "'" + A + "'";
 		
 		System.out.println(sql);
 		
@@ -134,7 +135,7 @@ public class OperSQL {
 				data.Z = rs.getString(2);
 				
 				for(int i=0; i<12; i++){
-					data.nuclear_info[i] = rs.getString(i+3);
+					data.nuclear_info[i] = (rs.getString(i+3).equals("null"))?" ":rs.getString(i+3);
 				}
 				data.A = rs.getString(15);
 				System.out.println(data.Z + " " + data.A);
