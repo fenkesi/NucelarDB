@@ -1,18 +1,25 @@
 package nuclear.function;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import nuclear.operdatabase.OperSQL;
@@ -26,9 +33,11 @@ public class SearchElem {
 	private ExcelData libData;
 	
 	static final int WIDTH = 220;
-	static final int HEIGHT = 150;
+	static final int HEIGHT = 300;
 	
-	String head[] = {"Z原子序数",
+	String head[] = {
+	"数据库",
+	"Z原子序数",
 	"元素",
 	"A质量数",
 	"Jπ原子核基态",
@@ -63,7 +72,7 @@ public class SearchElem {
 	public void showResult(ExcelData data, ExcelData libdata){
 		final JFrame jf = new JFrame("数据对比");
 		JPanel jp = new JPanel(new GridLayout(2,1));
-		String info [][] = new String[2][14];
+		String info [][] = new String[2][15];
 		JTable jt = null;
 		JTable libJt = null;
 		
@@ -80,23 +89,28 @@ public class SearchElem {
 		jf.setLocation(x,y);
 		jf.setVisible(true);
 		
+		JMenu jMenu = new JMenu("帮助");
+		JMenuBar MenuBar = new JMenuBar();
+		jf.setJMenuBar(MenuBar);
+		MenuBar.add(jMenu);		
+		
 		info[0][0] = "实验库";
 		
-		info[0][0] = data.Z;
-		info[0][1] = data.nuclear_info[0];
-		info[0][2] = data.A;
+		info[0][1] = data.Z;
+		info[0][2] = data.nuclear_info[0];
+		info[0][3] = data.A;
 		
-		for(int i=3; i<head.length; i++){
-			info[0][i] = data.nuclear_info[i-2];
+		for(int i=4; i<head.length; i++){
+			info[0][i] = data.nuclear_info[i-3];
 		}
 
 		info[1][0] = "标准库";
-		info[1][0] = data.Z;
-		info[1][1] = data.nuclear_info[0];
-		info[1][2] = data.A;
+		info[1][1] = data.Z;
+		info[1][2] = data.nuclear_info[0];
+		info[1][3] = data.A;
 		
-		for(int i=3; i<head.length; i++){
-			info[1][i] = data.nuclear_info[i-2];
+		for(int i=4; i<head.length; i++){
+			info[1][i] = data.nuclear_info[i-3];
 		}		
 				
 		jt = new JTable(info, head);
@@ -116,6 +130,47 @@ public class SearchElem {
 				jf.setVisible(false);
 			}			
 		});
+
+		jMenu.addMenuListener(new MenuListener() {
+			
+			@Override
+			public void menuSelected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				File file = new File("帮助.CHM");
+//				try{
+//					bf = new BufferedReader(new FileReader(file));
+//					String tempString = null;
+//					while((tempString = bf.readLine()) != null)
+//					{
+//						System.out.println(tempString);
+//					}
+//				}catch(Exception e1){
+//					
+//				}
+//				
+				//调用系统默认程序打开帮助文档
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
 	}
 	
 }

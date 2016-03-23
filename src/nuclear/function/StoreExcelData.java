@@ -37,7 +37,7 @@ public class StoreExcelData {
 		}
 	
 		for(ExcelData data : excelData){
-			System.out.println(data.Z + "-" + data.A);
+//			System.out.println(data.Z + "-" + data.A);
 			handleSQL.insert(data);
 		}
 		

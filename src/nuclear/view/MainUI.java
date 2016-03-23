@@ -53,7 +53,7 @@ public class MainUI {
 	}
 		
 	public void buttonInit(){
-		String strs[] = {"实验数据录入", "数据检索","对比绘图", "标准库录入", "退出"};
+		String strs[] = {"实验数据录入", "数据检索","数据库修改", "标准库录入", "退出"};
 		buttons = new JButton[5];
 		JPanel jp_up = new JPanel(new GridLayout(4,1));
 		JPanel jp_down = new JPanel(new GridLayout(1,2));
@@ -100,6 +100,15 @@ public class MainUI {
 				// TODO Auto-generated method stub
 				
 				new SearchUI(main_ui);
+			}
+		});
+		
+		buttons[2].addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new ModifyDBUI(main_ui);
 			}
 		});
 		

@@ -67,11 +67,11 @@ public class OperSQL {
 		
 		
 		sql = "create table "+tableName+" (id int(9) NOT NULL AUTO_INCREMENT, Z varchar(20), "+nInfo+"A char(30), "+"primary key(id) )";
-		System.out.println(sql);
+//		System.out.println(sql);
 		try {
 			ResultSet rs  = conn.getMetaData().getTables(null, null,  tableName, null );
 			if(rs.next()){
-				System.out.println("表已经存在了！");
+//				System.out.println("表已经存在了！");
 				return;
 			}
 		} catch (SQLException e1) {
@@ -92,6 +92,23 @@ public class OperSQL {
 		System.out.println("create Table successfully");
 	}
 	
+	public int deleteTable(String tableName){
+		String sql = "drop table " + tableName;
+		System.out.println(sql);
+		
+		try{
+			ResultSet rs = conn.getMetaData().getTables(null, null, tableName, null);
+			if(rs.next()){
+				stmt.executeUpdate(sql);
+				return 1;
+			}
+		}catch(SQLException e){
+			System.out.println("删除失败");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public  void insert(ExcelData data){	
 			int result;	
 			
@@ -107,7 +124,7 @@ public class OperSQL {
 			}
 			
 			sql = "insert into "+tableName+"(Z, "+nInfo+"A"+") values('"+data.Z+"', "+values+"'"+data.A+"')";
-			System.out.println(sql);
+//			System.out.println(sql);
 			try {
 				result = stmt.executeUpdate(sql);
 			} catch (SQLException e) {
